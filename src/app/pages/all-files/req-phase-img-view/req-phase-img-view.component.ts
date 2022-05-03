@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/core/services/data.service';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 
@@ -8,26 +9,20 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./req-phase-img-view.component.css']
 })
 export class ReqPhaseImgViewComponent implements OnInit {
-  visible: boolean = false;
   reqData: any = {};
   imageURL: string = '';
 
-  constructor(private _interaction: InteractionService, private _data: DataService) { }
+  constructor(private _data: DataService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._data.requirementsImgData.subscribe(m =>{
       this.reqData = m;
       this.display();
     })
-
-    this._interaction.viewStatus.subscribe(m =>{
-      this.visible = false;
-    })
   }
 
   display(){
     this.readImgURL();
-    this.visible = true;
   }
 
   readImgURL(){
@@ -39,6 +34,6 @@ export class ReqPhaseImgViewComponent implements OnInit {
   }
 
   closeView(){
-    this.visible = false;
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

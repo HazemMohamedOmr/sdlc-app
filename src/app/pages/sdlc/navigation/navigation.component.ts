@@ -4,6 +4,7 @@ import { DataService } from 'src/app/core/services/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -21,7 +22,9 @@ export class NavigationComponent implements OnInit {
     private _interaction: InteractionService,
     private _data: DataService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.projectInitData = this._data.ProInitData;
@@ -42,7 +45,7 @@ export class NavigationComponent implements OnInit {
   }
 
   setPhasesVisible(){
-    this._interaction.hideViews(true);
+    this.router.navigateByUrl('sdlc');
     this._interaction.toggleVisible(true);
   }
 
@@ -50,7 +53,6 @@ export class NavigationComponent implements OnInit {
     let newData: Array<object> = [];
     newData.push(data);
     newData.push({'index': index});
-    this._interaction.hideViews(true);
     this._data.sendProjInitData(newData);
   }
 
@@ -58,7 +60,6 @@ export class NavigationComponent implements OnInit {
     let newData: Array<object> = [];
     newData.push(data);
     newData.push({'index': index});
-    this._interaction.hideViews(true);
     this._data.sendProjReqData(newData);
   }
 
@@ -66,7 +67,6 @@ export class NavigationComponent implements OnInit {
     let newData: Array<object> = [];
     newData.push(data);
     newData.push({'index': index});
-    this._interaction.hideViews(true);
     this._data.sendProjDesignData(newData);
   }
 
@@ -80,18 +80,21 @@ export class NavigationComponent implements OnInit {
         switch(form){
           case 1:
             this._data.deleteProjInitData(index);
+            this.router.navigate(['../'], {relativeTo: this.route});
             this._snackBar.open("Item is deleted successfully!", "close",{
               duration: 2000,
             });
             break;
           case 2:
             this._data.deleteProjReqData(index);
+            this.router.navigate(['../'], {relativeTo: this.route});
             this._snackBar.open("Item is deleted successfully!", "close",{
               duration: 2000,
             });
             break;
           case 3:
             this._data.deleteProjDesignData(index);
+            this.router.navigate(['../'], {relativeTo: this.route});
             this._snackBar.open("Item is deleted successfully!", "close",{
               duration: 2000,
             });

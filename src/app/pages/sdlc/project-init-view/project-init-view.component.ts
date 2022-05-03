@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 import { DataService } from 'src/app/core/services/data.service';
@@ -11,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./project-init-view.component.css']
 })
 export class ProjectInitViewComponent implements OnInit {
-  visible: boolean = false;
   proInitData: any = {};
   index: any = {};
   dialogRef?: any;
@@ -20,7 +20,9 @@ export class ProjectInitViewComponent implements OnInit {
     private _interaction: InteractionService,
     private _data: DataService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._data.projInitData.subscribe(m =>{
@@ -28,20 +30,14 @@ export class ProjectInitViewComponent implements OnInit {
       this.index = m[1];
       this.display();
     })
-
-    this._interaction.viewStatus.subscribe(m =>{
-      this.closeView();
-    })
   }
 
   closeView(){
-    this.visible = false;
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   display(){
     this._interaction.toggleVisible(false);
-    this._interaction.sendSelectedForm('');
-    this.visible = true;
   }
 
   deleteItem(index: number): void {
@@ -61,12 +57,11 @@ export class ProjectInitViewComponent implements OnInit {
   }
 
   updateItem(data:object, index: number){
+    this.router.navigate(['sdlc/project-Init-edit']);
     let newData: Array<object> = [];
     newData.push(data);
     newData.push({'index': index});
     this._data.sendProjInitUpdateData(newData);
-    this._interaction.sendSelectedUpdateForm("PI");
-    this.closeView();
   }
 
 }

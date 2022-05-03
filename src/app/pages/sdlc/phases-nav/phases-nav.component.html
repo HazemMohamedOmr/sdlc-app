@@ -3,8 +3,8 @@
         <h2 class="pt-1">SDLC Phases</h2>
         <mat-form-field appearance="outline" color="primary">
             <mat-label>SDLC Phase</mat-label>
-            <mat-select [(value)]="selectedValue" (valueChange)="sendFormComp()" name="food">
-            <mat-option *ngFor="let sdlc of SDLCs" [value]="sdlc.value">
+            <mat-select [(value)]="selectedValue">
+            <mat-option *ngFor="let sdlc of SDLCs" [routerLink]="sdlc.routing" [value]="sdlc.value">
                 {{sdlc.viewValue}}
             </mat-option>
             </mat-select>

@@ -11,7 +11,7 @@ export class NavigateComponent implements OnInit {
   projectReqData: Array<any> = [];
   projectDesignData: Array<any> = [];
 
-  constructor(private _interaction: InteractionService, private _data: DataService) { }
+  constructor(private _data: DataService) { }
 
   ngOnInit(): void {
     this.projectReqData = this._data.ProjReqData;
@@ -27,12 +27,10 @@ export class NavigateComponent implements OnInit {
   }
 
   sendReqData(data: object){
-    this._interaction.hideViews(true);
     this._data.sendReqImgData(data);
   }
 
   sendDesignData(data: object){
-    this._interaction.hideViews(true);
     this._data.sendDesignImgData(data);
   }
 

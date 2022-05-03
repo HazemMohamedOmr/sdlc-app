@@ -4,6 +4,7 @@ import { DataService } from 'src/app/core/services/data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-requiremet-view',
@@ -11,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./requiremet-view.component.css']
 })
 export class RequiremetViewComponent implements OnInit {
-  visible: boolean = false;
   ReqData: any = {};
   index: any = {};
   imageURL: string = '';
@@ -21,7 +21,9 @@ export class RequiremetViewComponent implements OnInit {
     private _interaction: InteractionService,
     private _data: DataService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._data.requirementsData.subscribe(m =>{
@@ -29,21 +31,15 @@ export class RequiremetViewComponent implements OnInit {
       this.index = m[1];
       this.display();
     })
-
-    this._interaction.viewStatus.subscribe(m =>{
-      this.closeView();
-    })
   }
 
   closeView(){
-    this.visible = false;
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   display(){
     this._interaction.toggleVisible(false);
-    this._interaction.sendSelectedForm('');
     this.readImgURL();
-    this.visible = true;
   }
 
   readImgURL(){
@@ -71,11 +67,10 @@ export class RequiremetViewComponent implements OnInit {
   }
 
   updateItem(data:object, index: number){
+    this.router.navigate(['sdlc/requirement-edit']);
     let newData: Array<object> = [];
     newData.push(data);
     newData.push({'index': index});
     this._data.sendProjReqUpdateData(newData);
-    this._interaction.sendSelectedUpdateForm("R");
-    this.closeView();
   }
 }

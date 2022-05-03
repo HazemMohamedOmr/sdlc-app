@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/core/services/data.service';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 
@@ -10,13 +11,12 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./update-project-init-form.component.css']
 })
 export class UpdateProjectInitFormComponent implements OnInit {
-  visible: boolean = false;
   projectInit: FormGroup;
   proInitOldData: any = {};
   index: any = {};
 
   constructor(private fb: FormBuilder, private _interaction: InteractionService, private _data: DataService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { 
     this.projectInit = this.fb.group({
       projectTitle: ['', Validators.required],
       projectManager: ['', Validators.required],
@@ -39,15 +39,6 @@ export class UpdateProjectInitFormComponent implements OnInit {
       this.updateForm();
       
     })
-
-    this._interaction.selectedUpdateForm.subscribe(m => {
-      if(m == 'PI'){
-        this.display();
-      }
-      else{
-        this.visible = false;
-      }
-    });
   }
 
   updateForm(){
@@ -63,8 +54,6 @@ export class UpdateProjectInitFormComponent implements OnInit {
 
   display(){
     this._interaction.toggleVisible(false);
-    this._interaction.sendSelectedForm('');
-    this.visible = true;
   }
 
   onSubmit(){
@@ -73,7 +62,6 @@ export class UpdateProjectInitFormComponent implements OnInit {
       this._data.UpdateProjInitData(this.projectInit.value, this.index.index);
       this.closeForm();
       this._interaction.toggleVisible(false);
-      this.projectInit.reset();
       this._snackBar.open("Item is Updated successfully!", "close",{
         duration: 2000,
       });
@@ -83,7 +71,7 @@ export class UpdateProjectInitFormComponent implements OnInit {
   }
 
   closeForm(){
-    this._interaction.sendSelectedUpdateForm('');
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
 }
