@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/core/services/data.service';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 
@@ -10,12 +11,11 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./design-form.component.css']
 })
 export class DesignFormComponent implements OnInit {
-  visible: boolean = false;
   imageURL: Array<string>;
   designForm: FormGroup;
 
   constructor(private fb: FormBuilder, private _interaction: InteractionService, private _data: DataService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { 
     this.designForm = this.fb.group({
       files: this.fb.array([
         this.fb.group({
@@ -31,12 +31,7 @@ export class DesignFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._interaction.selectedForm.subscribe(m => {
-      if(m == 'D')
-        this.visible = true;
-      else
-        this.visible = false;
-    });
+
   }
 
   get files() {
@@ -78,21 +73,13 @@ export class DesignFormComponent implements OnInit {
       this._data.addProjDesign(this.designForm.value);
       this.closeForm();
       this._interaction.toggleVisible(false);
-      this.resetForm();
       this._snackBar.open("Item is added successfully!", "close",{
         duration: 2000,
       });
     }
   }
 
-  resetForm(){
-    this.designForm.reset();
-    this.files.clear();
-    this.imageURL = ['']
-    this.addNewDocument();
-  }
-
   closeForm(){
-    this._interaction.sendSelectedForm('');
+    this.router.navigate(['../'], {relativeTo: this.route})
   }
 }

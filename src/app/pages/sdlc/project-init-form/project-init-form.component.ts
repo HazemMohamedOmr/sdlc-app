@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,11 +11,10 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./project-init-form.component.css']
 })
 export class ProjectInitFormComponent implements OnInit {
-  visible: boolean = false;
   projectInit: FormGroup;
 
   constructor(private fb: FormBuilder, private _interaction: InteractionService, private _data: DataService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { 
     this.projectInit = this.fb.group({
       projectTitle: ['', Validators.required],
       projectManager: ['', Validators.required],
@@ -29,12 +29,7 @@ export class ProjectInitFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._interaction.selectedForm.subscribe(m => {
-      if(m == 'PI')
-        this.visible = true;
-      else
-        this.visible = false;
-    });
+    
   }
 
   onSubmit(){
@@ -43,7 +38,6 @@ export class ProjectInitFormComponent implements OnInit {
       this._data.addProjInit(this.projectInit.value);
       this.closeForm();
       this._interaction.toggleVisible(false);
-      this.projectInit.reset();
       this._snackBar.open("Item is added successfully!", "close",{
         duration: 2000,
       });
@@ -53,6 +47,6 @@ export class ProjectInitFormComponent implements OnInit {
   }
 
   closeForm(){
-    this._interaction.sendSelectedForm('');
+    this.router.navigate(['../'], {relativeTo: this.route})
   }
 }

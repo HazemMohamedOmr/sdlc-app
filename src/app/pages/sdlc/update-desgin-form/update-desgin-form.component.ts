@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/core/services/data.service';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 
@@ -10,14 +11,13 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./update-desgin-form.component.css']
 })
 export class UpdateDesginFormComponent implements OnInit {
-  visible: boolean = false;
   imageURL: Array<string>;
   designForm: FormGroup;
   designOldData: any = {};
   index: any = {};
 
   constructor(private fb: FormBuilder, private _interaction: InteractionService, private _data: DataService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { 
     this.designForm = this.fb.group({
       files: this.fb.array([
         this.fb.group({
@@ -44,15 +44,6 @@ export class UpdateDesginFormComponent implements OnInit {
       this.fillImages();
       this.updateForm();
     })
-
-    this._interaction.selectedUpdateForm.subscribe(m => {
-      if(m == 'D'){
-        this.display();
-      }
-      else{
-        this.visible = false;
-      }
-    });
   }
 
   updateForm(){
@@ -63,8 +54,6 @@ export class UpdateDesginFormComponent implements OnInit {
 
   display(){
     this._interaction.toggleVisible(false);
-    this._interaction.sendSelectedForm('');
-    this.visible = true;
   }
 
   get files() {
@@ -116,21 +105,13 @@ export class UpdateDesginFormComponent implements OnInit {
       this._data.UpdateProjDesignData(this.designForm.value, this.index.index);
       this.closeForm();
       this._interaction.toggleVisible(false);
-      this.resetForm();
       this._snackBar.open("Item is updated successfully!", "close",{
         duration: 2000,
       });
     }
   }
 
-  resetForm(){
-    this.designForm.reset();
-    this.files.clear();
-    this.imageURL = ['']
-    this.addNewDocument();
-  }
-
   closeForm(){
-    this._interaction.sendSelectedUpdateForm('');
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

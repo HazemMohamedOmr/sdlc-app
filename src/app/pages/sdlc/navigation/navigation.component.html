@@ -11,7 +11,7 @@
         </mat-card-content>
         <mat-divider inset></mat-divider>
         <mat-card-actions class="d-flex justify-content-evenly">
-            <button (click)="sendInitData(item, i)" mat-raised-button>View</button>
+            <button (click)="sendInitData(item, i)" routerLink="project-Init-view" mat-raised-button>View</button>
             <button (click)="deleteItem(1, i)" mat-raised-button color="warn">Delete</button>
         </mat-card-actions>
     </mat-card>
@@ -23,7 +23,7 @@
         </mat-card-content>
         <mat-divider inset></mat-divider>
         <mat-card-actions class="d-flex justify-content-evenly">
-            <button (click)="sendReqData(item, i)" mat-raised-button>View</button>
+            <button (click)="sendReqData(item, i)" routerLink="requirement-view" mat-raised-button>View</button>
             <button (click)="deleteItem(2, i)" mat-raised-button color="warn">Delete</button>
         </mat-card-actions>
     </mat-card>
@@ -35,7 +35,7 @@
         </mat-card-content>
         <mat-divider inset></mat-divider>
         <mat-card-actions class="d-flex justify-content-evenly">
-            <button (click)="sendDesignData(item, i)" mat-raised-button>View</button>
+            <button (click)="sendDesignData(item, i)" routerLink="design-view" mat-raised-button>View</button>
             <button (click)="deleteItem(3, i)" mat-raised-button color="warn">Delete</button>
         </mat-card-actions>
     </mat-card>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,10 @@ export class DataService {
   private _projInit = new Subject<Array<object>>();
   projInit = this._projInit.asObservable();
 
-  private _projInitData = new Subject<Array<object>>();
+  private _projInitData = new BehaviorSubject<Array<object>>([]);
   projInitData = this._projInitData.asObservable();
 
-  private _projInitUpdateData = new Subject<Array<object>>();
+  private _projInitUpdateData = new BehaviorSubject<Array<object>>([]);
   projInitUpdateData = this._projInitUpdateData.asObservable();
 
 
@@ -25,13 +25,13 @@ export class DataService {
   private _requirements = new Subject<Array<object>>();
   requirements = this._requirements.asObservable();
 
-  private _requirementsData = new Subject<Array<object>>();
+  private _requirementsData = new BehaviorSubject<Array<object>>([]);
   requirementsData = this._requirementsData.asObservable();
 
-  private _requirementsImgData = new Subject<object>();
+  private _requirementsImgData = new BehaviorSubject<object>({});
   requirementsImgData = this._requirementsImgData.asObservable();
 
-  private _requirementsUpdateData = new Subject<Array<object>>();
+  private _requirementsUpdateData = new BehaviorSubject<Array<object>>([]);
   requirementsUpdateData = this._requirementsUpdateData.asObservable();
 
   // Project Design Data
@@ -40,13 +40,13 @@ export class DataService {
   private _design = new Subject<Array<object>>();
   design = this._design.asObservable();
 
-  private _designData = new Subject<Array<object>>(); 
+  private _designData = new BehaviorSubject<Array<object>>([]); 
   designData = this._designData.asObservable();
 
-  private _designImgData = new Subject<object>(); 
+  private _designImgData = new BehaviorSubject<object>({}); 
   designImgData = this._designImgData.asObservable();
 
-  private _designUpdateData = new Subject<Array<object>>();
+  private _designUpdateData = new BehaviorSubject<Array<object>>([]);
   designUpdateData = this._designUpdateData.asObservable();
 
   constructor() { }

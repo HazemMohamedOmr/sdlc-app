@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,11 +12,10 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./requirments-form.component.css']
 })
 export class RequirmentsFormComponent implements OnInit {
-  visible: boolean = false;
   requirementForm: FormGroup;
 
   constructor(private fb: FormBuilder, private _interaction: InteractionService, private _data: DataService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { 
     this.requirementForm = this.fb.group({
       introduction: ['', Validators.required],
       purpose: ['', Validators.required],
@@ -27,12 +27,7 @@ export class RequirmentsFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._interaction.selectedForm.subscribe(m => {
-      if(m == 'R')
-        this.visible = true;
-      else
-        this.visible = false;
-    });
+
   }
 
   onSubmit(){
@@ -42,7 +37,6 @@ export class RequirmentsFormComponent implements OnInit {
       this._data.addProjReq(this.requirementForm.value);
       this.closeForm();
       this._interaction.toggleVisible(false);
-      this.requirementForm.reset();
       this._snackBar.open("Item is added successfully!", "close",{
         duration: 2000,
       });
@@ -50,6 +44,6 @@ export class RequirmentsFormComponent implements OnInit {
   }
 
   closeForm(){
-    this._interaction.sendSelectedForm('');
+    this.router.navigate(['../'], {relativeTo: this.route})
   }
 }

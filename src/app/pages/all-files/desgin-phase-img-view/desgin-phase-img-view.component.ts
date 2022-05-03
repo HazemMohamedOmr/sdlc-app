@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/core/services/data.service';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 
@@ -8,26 +9,20 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./desgin-phase-img-view.component.css']
 })
 export class DesginPhaseImgViewComponent implements OnInit {
-  visible: boolean = false;
   designData: any = {};
   imageURL: string = '';
 
-  constructor(private _interaction: InteractionService, private _data: DataService) { }
+  constructor(private _data: DataService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._data.designImgData.subscribe(m =>{
       this.designData = m;
       this.display();
     })
-
-    this._interaction.viewStatus.subscribe(m =>{
-      this.visible = false;
-    })
   }
 
   display(){
     this.readImgURL();
-    this.visible = true;
   }
 
   readImgURL(){
@@ -39,6 +34,6 @@ export class DesginPhaseImgViewComponent implements OnInit {
   }
 
   closeView(){
-    this.visible = false;
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

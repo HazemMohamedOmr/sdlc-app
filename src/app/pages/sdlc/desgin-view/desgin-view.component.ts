@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 import { DataService } from 'src/app/core/services/data.service';
@@ -11,7 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./desgin-view.component.css']
 })
 export class DesginViewComponent implements OnInit {
-  visible: boolean = false;
   designData: any = {};
   index: any = {};
   imageURL: Array<string> = [];
@@ -21,7 +21,9 @@ export class DesginViewComponent implements OnInit {
     private _interaction: InteractionService,
     private _data: DataService,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._data.designData.subscribe(m =>{
@@ -31,21 +33,15 @@ export class DesginViewComponent implements OnInit {
       
       this.display();
     })
-    
-    this._interaction.viewStatus.subscribe(m =>{
-      this.closeView();
-    })
   }
 
   closeView(){
-    this.visible = false;
+    this.router.navigate(['../'], {relativeTo: this.route})
   }
 
   display(){
     this._interaction.toggleVisible(false);
-    this._interaction.sendSelectedForm('');
     this.readImgURL();
-    this.visible = true;
   }
 
   readImgURL(){
@@ -75,12 +71,11 @@ export class DesginViewComponent implements OnInit {
   }
 
   updateItem(data:object, index: number){
+    this.router.navigate(['sdlc/design-edit']);
     let newData: Array<object> = [];
     newData.push(data);
     newData.push({'index': index});
     this._data.sendProjDesignUpdateData(newData);
-    this._interaction.sendSelectedUpdateForm("D");
-    this.closeView();
   }
 
 }

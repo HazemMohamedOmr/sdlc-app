@@ -18,7 +18,7 @@
             </mat-card-content>
             <mat-divider inset></mat-divider>
             <mat-card-actions class="d-flex justify-content-center">
-                <button (click)="sendReqData(item)" mat-raised-button>View</button>
+                <button (click)="sendReqData(item)" routerLink="all-files-requirement" mat-raised-button>View</button>
             </mat-card-actions>
         </mat-card>
         <div *ngFor="let items of projectDesignData">
@@ -30,7 +30,7 @@
                 </mat-card-content>
                 <mat-divider inset></mat-divider>
                 <mat-card-actions class="d-flex justify-content-center">
-                    <button (click)="sendDesignData(item)" mat-raised-button>View</button>
+                    <button (click)="sendDesignData(item)" routerLink="all-files-design" mat-raised-button>View</button>
                 </mat-card-actions>
             </mat-card>
         </div>

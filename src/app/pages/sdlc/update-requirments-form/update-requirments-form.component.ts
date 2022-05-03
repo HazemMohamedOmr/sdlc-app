@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/core/services/data.service';
 import { InteractionService } from 'src/app/core/services/interaction.service';
 
@@ -10,13 +11,12 @@ import { InteractionService } from 'src/app/core/services/interaction.service';
   styleUrls: ['./update-requirments-form.component.css']
 })
 export class UpdateRequirmentsFormComponent implements OnInit {
-  visible: boolean = false;
   requirementForm: FormGroup;
   requirementOldData: any = {};
   index: any = {};
 
   constructor(private fb: FormBuilder, private _interaction: InteractionService, private _data: DataService,
-    private _snackBar: MatSnackBar) { 
+    private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { 
     this.requirementForm = this.fb.group({
       introduction: ['', Validators.required],
       purpose: ['', Validators.required],
@@ -34,14 +34,6 @@ export class UpdateRequirmentsFormComponent implements OnInit {
       this.updateForm();
     })
 
-    this._interaction.selectedUpdateForm.subscribe(m => {
-      if(m == 'R'){
-        this.display();
-      }
-      else{
-        this.visible = false;
-      }
-    });
   }
 
   updateForm(){
@@ -57,8 +49,6 @@ export class UpdateRequirmentsFormComponent implements OnInit {
 
   display(){
     this._interaction.toggleVisible(false);
-    this._interaction.sendSelectedForm('');
-    this.visible = true;
   }
 
   onSubmit(){
@@ -68,7 +58,6 @@ export class UpdateRequirmentsFormComponent implements OnInit {
       this._data.UpdateProjReqData(this.requirementForm.value, this.index.index);
       this.closeForm();
       this._interaction.toggleVisible(false);
-      this.requirementForm.reset();
       this._snackBar.open("Item is updated successfully!", "close",{
         duration: 2000,
       });
@@ -76,6 +65,6 @@ export class UpdateRequirmentsFormComponent implements OnInit {
   }
 
   closeForm(){
-    this._interaction.sendSelectedUpdateForm('');
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 }
