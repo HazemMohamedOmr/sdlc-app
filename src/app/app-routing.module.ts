@@ -17,22 +17,22 @@ import { SdlcComponent } from './pages/sdlc/sdlc.component';
 const routes: Routes = [
   {path: '', redirectTo: 'sdlc', pathMatch: 'full'},
   {path: 'sdlc', component: SdlcComponent,
-  children:[
-    {path: 'project-Init-form', component: ProjectInitFormComponent},
-    {path: 'project-Init-view', component: ProjectInitViewComponent},
-    {path: 'project-Init-edit', component: UpdateProjectInitFormComponent},
-    {path: 'requirement-form', component: RequirmentsFormComponent},
-    {path: 'requirement-view', component: RequiremetViewComponent},
-    {path: 'requirement-edit', component: UpdateRequirmentsFormComponent},
-    {path: 'design-form', component: DesignFormComponent},
-    {path: 'design-view', component: DesginViewComponent},
-    {path: 'design-edit', component: UpdateDesginFormComponent}
-  ]},
+    children:[
+      {path: 'project-Init-form', component: ProjectInitFormComponent},
+      {path: 'project-Init-view', component: ProjectInitViewComponent},
+      {path: 'project-Init-edit', component: UpdateProjectInitFormComponent},
+      {path: 'requirement-form', component: RequirmentsFormComponent},
+      {path: 'requirement-view', component: RequiremetViewComponent},
+      {path: 'requirement-edit', component: UpdateRequirmentsFormComponent},
+      {path: 'design-form', component: DesignFormComponent},
+      {path: 'design-view', component: DesginViewComponent},
+      {path: 'design-edit', component: UpdateDesginFormComponent}
+    ]},
   {path: 'allFiles', component: AllFilesComponent,
-  children:[
-    {path: 'all-files-requirement', component: ReqPhaseImgViewComponent},
-    {path: 'all-files-design', component: DesginPhaseImgViewComponent}
-  ]},
+    children:[
+      {path: 'all-files-requirement', component: ReqPhaseImgViewComponent},
+      {path: 'all-files-design', component: DesginPhaseImgViewComponent}
+    ]},
   {path: '**', redirectTo: 'sdlc'},
 ];
 
