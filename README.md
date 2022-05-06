@@ -1,6 +1,10 @@
 # SdlcApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
+This project serve as software for Software Development Life Cycle (SDLC). Especially, 
+1- Project Initiation Phase
+2- Project Requirement Phase
+3- Project Design Phase
 
 ## Development server
 
