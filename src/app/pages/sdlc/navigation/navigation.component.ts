@@ -27,9 +27,6 @@ export class NavigationComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.projectInitData = this._data.ProInitData;
-    this.projectReqData = this._data.ProjReqData;
-    this.projectDesignData = this._data.ProjDesignData;
 
     this._data.projInit.subscribe(m => {
       this.projectInitData = m;

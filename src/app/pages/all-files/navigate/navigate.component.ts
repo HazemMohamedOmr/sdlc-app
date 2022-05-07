@@ -14,8 +14,6 @@ export class NavigateComponent implements OnInit {
   constructor(private _data: DataService) { }
 
   ngOnInit(): void {
-    this.projectReqData = this._data.ProjReqData;
-    this.projectDesignData = this._data.ProjDesignData;
 
     this._data.requirements.subscribe(m => {
       this.projectReqData = m;

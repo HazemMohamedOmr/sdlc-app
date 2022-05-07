@@ -9,7 +9,7 @@ export class DataService {
   // Project Initiation Data
 
   private projectInitiation: Array<object> = []
-  private _projInit = new Subject<Array<object>>();
+  private _projInit = new BehaviorSubject<Array<object>>([]);
   projInit = this._projInit.asObservable();
 
   private _projInitData = new BehaviorSubject<Array<object>>([]);
@@ -22,7 +22,7 @@ export class DataService {
   // Project Requirements Data
 
   private projectRequirement: Array<object> = []
-  private _requirements = new Subject<Array<object>>();
+  private _requirements = new BehaviorSubject<Array<object>>([]);
   requirements = this._requirements.asObservable();
 
   private _requirementsData = new BehaviorSubject<Array<object>>([]);
@@ -37,7 +37,7 @@ export class DataService {
   // Project Design Data
 
   private projectDesign: Array<object> = []
-  private _design = new Subject<Array<object>>();
+  private _design = new BehaviorSubject<Array<object>>([]);
   design = this._design.asObservable();
 
   private _designData = new BehaviorSubject<Array<object>>([]); 
@@ -50,19 +50,6 @@ export class DataService {
   designUpdateData = this._designUpdateData.asObservable();
 
   constructor() { }
-
-  // Getters
-  get ProInitData(){
-    return this.projectInitiation;
-  }
-
-  get ProjReqData(){
-    return this.projectRequirement;
-  }
-
-  get ProjDesignData(){
-    return this.projectDesign;
-  }
 
   // Sending Data to Display it
 
