@@ -6,6 +6,22 @@ This project serve as software for Software Development Life Cycle (SDLC). Espec
 2- Project Requirement Phase  
 3- Project Design Phase  
 
+## Installation
+
+First you need yo make sure you have installed `Node.js` in you machine.  
+Run `node -v` to see what Version is currently running.  
+if it's not installed. Navigate to `https://nodejs.org/en/` and download and in stall The `LTS` (Latest Stable) Version.  
+  
+  
+Then, run `ng --version` to see what Version of Angular is currently installed.  
+if it's not installed or the version is not `13.3.3`.  
+run `npm install -g @angular/cli@13.3.3` to install it.  
+run `ng --version` again to make sure that Angular is installed successfully.   
+
+## Install Dependenices
+
+After Cloning the repo, Open `cmd` in Angular Project Directory and run `npm install` to install all the dependenices.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
