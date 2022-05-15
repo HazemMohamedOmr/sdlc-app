@@ -15,6 +15,7 @@ export class ProjectInitFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private _interaction: InteractionService, private _data: DataService,
     private _snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) { 
+
     this.projectInit = this.fb.group({
       projectTitle: ['', Validators.required],
       projectManager: ['', Validators.required],
